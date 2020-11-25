@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Art/Fx/ScreenFX.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/FPS_Label.tscn" type="PackedScene" id=3]
 
 [node name="MultiCam" type="Camera2D"]
 current = true
@@ -33,3 +34,5 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="FPS" parent="HUD" instance=ExtResource( 3 )]

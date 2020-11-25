@@ -34,7 +34,7 @@ position = Vector2( -76.0615, -0.629967 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "JetFlame"
-frame = 8
+frame = 12
 playing = true
 
 [node name="Spaceship" type="Sprite" parent="."]

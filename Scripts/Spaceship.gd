@@ -18,6 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	direction = (get_global_mouse_position() - global_position).normalized()
+	
 	velocity = direction * speed
 	look_at(get_global_mouse_position())
 	if Input.is_action_pressed("move"):
@@ -25,5 +26,4 @@ func _physics_process(delta):
 		get_node("JetFlame").show()
 	else:
 		get_node("JetFlame").hide()
-	#velocity = move_and_slide(velocity, Vector2.UP)
 	pass	#_Physics Process
