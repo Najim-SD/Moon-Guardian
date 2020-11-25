@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Jet Flames0001.png-c3c8131cc2a6744c4fe69631cbb00cfc.stex"
+path="res://.import/JetFlame14.png-6945daf07b12f8a4a45ec0ccbdd6d002.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Jet Flames0001.png"
-dest_files=[ "res://.import/Jet Flames0001.png-c3c8131cc2a6744c4fe69631cbb00cfc.stex" ]
+source_file="res://Art/JetFlame/JetFlame14.png"
+dest_files=[ "res://.import/JetFlame14.png-6945daf07b12f8a4a45ec0ccbdd6d002.stex" ]
 
 [params]
 

@@ -22,6 +22,8 @@ func _physics_process(delta):
 	look_at(get_global_mouse_position())
 	if Input.is_action_pressed("move"):
 		velocity = move_and_slide(velocity, Vector2.UP)
-		pass
+		get_node("JetFlame").show()
+	else:
+		get_node("JetFlame").hide()
 	#velocity = move_and_slide(velocity, Vector2.UP)
 	pass	#_Physics Process
