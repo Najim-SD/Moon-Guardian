@@ -27,9 +27,9 @@ func _physics_process(delta):
 		direction = (get_global_mouse_position() - global_position).normalized()
 		look_at(get_global_mouse_position())
 	else:
-		var nd = Vector2(Input.get_joy_axis(0, 0), Input.get_joy_axis(0, 1))
+		var nd = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
 		if(nd.length() > 0.3):
-			direction = vectorLerp(direction, nd, 0.1)
+			direction = vectorLerp(direction, nd, 0.2)
 			rotation = direction.angle()
 	
 	if isPressed("move"):

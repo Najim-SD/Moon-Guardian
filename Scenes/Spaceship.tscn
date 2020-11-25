@@ -30,15 +30,15 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="JetFlame" type="AnimatedSprite" parent="."]
-position = Vector2( -76.0615, -0.629967 )
+position = Vector2( -76.3765, -1.57491 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "JetFlame"
-frame = 12
+frame = 1
 playing = true
 
 [node name="Spaceship" type="Sprite" parent="."]
-position = Vector2( -2.62255, 2.24747 )
+position = Vector2( -2.4739, 0.0177069 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 

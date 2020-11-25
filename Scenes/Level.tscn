@@ -11,10 +11,15 @@
 [node name="Spaceship" parent="." instance=ExtResource( 1 )]
 position = Vector2( 633.525, 371.621 )
 
+[node name="Spaceship2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 692.259, 525.599 )
+useJoyStick = false
+controlDevice = 1
+
 [node name="MultiCam" parent="." instance=ExtResource( 2 )]
 smoothing_speed = 10.0
 drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
-targets = [ "Spaceship" ]
+targets = [ "Spaceship", "Spaceship2" ]
