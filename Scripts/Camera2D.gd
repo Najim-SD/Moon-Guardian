@@ -35,6 +35,8 @@ func _process(delta):
 	factor1 = wid / 1280
 	factor2 = height / 720
 	var f = max(factor1, factor2)
+	
+	#f = clamp(f, 1, 2)
 	if f < 1 : f = 1
 	
 	zoom.x = f

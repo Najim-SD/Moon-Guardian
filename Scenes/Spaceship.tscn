@@ -34,7 +34,7 @@ position = Vector2( -76.3765, -1.57491 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "JetFlame"
-frame = 1
+frame = 9
 playing = true
 
 [node name="Spaceship" type="Sprite" parent="."]
@@ -45,3 +45,21 @@ texture = ExtResource( 1 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
 polygon = PoolVector2Array( 37.5561, -0.0800629, 22.8727, -4.84227, 1.04591, -28.2564, -39.8297, -46.5115, -23.5588, -11.1919, -36.258, -10.795, -35.8612, 9.04749, -22.7651, 10.6349, -40.2265, 46.7483, 0.649063, 29.2868, 23.6664, 6.66639 )
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.0
+margin_top = -80.0
+margin_right = 54.0
+margin_bottom = -73.0
+grow_horizontal = 2
+text = "Position: "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

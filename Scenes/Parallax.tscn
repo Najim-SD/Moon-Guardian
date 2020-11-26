@@ -8,7 +8,7 @@
 
 [node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0.0784314 )
-motion_scale = Vector2( 0.1, 0.1 )
+motion_scale = Vector2( 0.2, 0.2 )
 motion_mirroring = Vector2( 1280, 720 )
 
 [node name="Stars" type="Sprite" parent="ParallaxBackground/BG"]
@@ -18,8 +18,8 @@ centered = false
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 
 [node name="BG2" type="ParallaxLayer" parent="ParallaxBackground2"]
-modulate = Color( 1, 1, 1, 0.792157 )
-motion_scale = Vector2( 0.8, 0.8 )
+modulate = Color( 1, 1, 1, 0.462745 )
+motion_scale = Vector2( 0.4, 0.4 )
 motion_mirroring = Vector2( 1280, 720 )
 
 [node name="Stars" type="Sprite" parent="ParallaxBackground2/BG2"]
@@ -29,8 +29,8 @@ centered = false
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
 
 [node name="BG3" type="ParallaxLayer" parent="ParallaxBackground3"]
-modulate = Color( 1, 1, 1, 0.352941 )
-motion_scale = Vector2( 0.4, 0.4 )
+modulate = Color( 1, 1, 1, 0.819608 )
+motion_scale = Vector2( 0.8, 0.8 )
 motion_mirroring = Vector2( 1280, 720 )
 
 [node name="Stars" type="Sprite" parent="ParallaxBackground3/BG3"]

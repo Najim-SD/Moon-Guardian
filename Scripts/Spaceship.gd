@@ -20,6 +20,9 @@ export var controlDevice = 0
 func _ready():
 	pass # Replace with function body.
 
+func _process(delta):
+	$UI.global_rotation = 0
+	$UI/Label.text = "Position: " + str(position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
