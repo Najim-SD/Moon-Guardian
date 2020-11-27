@@ -18,7 +18,7 @@ _global_script_class_icons={
 config/name="Genetic AI Spaceships"
 config/description="A game made for the 2020 Github GameOff Jam. using Godot 3.2.3"
 run/main_scene="res://Scenes/Level.tscn"
-config/icon="res://Art/Spaceship.png"
+config/icon="res://icon.png"
 
 [display]
 

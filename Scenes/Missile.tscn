@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Art/Missile.png" type="Texture" id=1]
+
+[node name="Missile" type="KinematicBody2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1, 0 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+offset = Vector2( 2, 0 )

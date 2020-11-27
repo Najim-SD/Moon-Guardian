@@ -11,9 +11,12 @@ var accelration = 25
 var power = 0.0
 var friction = 0.03
 var maxSpeed = 500.0
+var bulletSpeed = 800.0
+var bullet = preload("res://Scenes/LaserShot.tscn")
 
 export var useJoyStick = true
 export var controlDevice = 0
+export var playerId = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +25,7 @@ func _ready():
 
 func _process(delta):
 	$UI.global_rotation = 0
-	$UI/Label.text = "Position: " + str(position)
+	$UI/Label.text = "Player: " + str(playerId+1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -30,9 +33,10 @@ func _physics_process(delta):
 		direction = (get_global_mouse_position() - global_position).normalized()
 		look_at(get_global_mouse_position())
 	else:
-		var nd = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
+		var nd:Vector2 = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
+		nd = nd.normalized()
 		if(nd.length() > 0.3):
-			direction = vectorLerp(direction, nd, 0.2)
+			direction = vectorLerp(direction, nd, 0.1)
 			rotation = direction.angle()
 	
 	if isPressed("move"):

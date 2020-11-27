@@ -17,6 +17,7 @@ position = Vector2( 493.367, 260.829 )
 [node name="Spaceship2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 773.683, 457.051 )
 useJoyStick = false
+playerId = 1
 
 [node name="MultiCam" parent="." instance=ExtResource( 2 )]
 smoothing_speed = 10.0
