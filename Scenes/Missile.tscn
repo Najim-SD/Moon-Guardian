@@ -2,10 +2,14 @@
 
 [ext_resource path="res://Art/Missile.png" type="Texture" id=1]
 
-[node name="Missile" type="KinematicBody2D"]
+[node name="Missile" type="StaticBody2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 offset = Vector2( 2, 0 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 15.1549, 0.00128174, 7.36798, -3.06631, -5.84626, -4.83607, -20.3583, -4.95406, -20.4763, 4.72065, -5.84626, 4.72065, 7.36798, 3.18686 )
+disabled = true

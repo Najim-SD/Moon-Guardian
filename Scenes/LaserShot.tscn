@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.31804, 2.67354 )
 
-[node name="LaserShot" type="Area2D"]
+[node name="LaserShot" type="RigidBody2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -10, 0 )
@@ -14,5 +14,6 @@ texture = ExtResource( 1 )
 offset = Vector2( 2, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -7.5, 0 )
 shape = SubResource( 1 )

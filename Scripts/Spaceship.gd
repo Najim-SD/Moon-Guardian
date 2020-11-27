@@ -11,8 +11,13 @@ var accelration = 25
 var power = 0.0
 var friction = 0.03
 var maxSpeed = 500.0
+
+var health = 100
+
 var bulletSpeed = 800.0
-var bullet = preload("res://Scenes/LaserShot.tscn")
+export var fireRate = 60 * 0.20
+var fireCounter = 0
+var bulletScene = preload("res://Scenes/LaserShot.tscn")
 
 export var useJoyStick = true
 export var controlDevice = 0
@@ -25,10 +30,11 @@ func _ready():
 
 func _process(delta):
 	$UI.global_rotation = 0
-	$UI/Label.text = "Player: " + str(playerId+1)
+	$UI/Label.text = "Player: " + str(playerId+1) + "\nHealth : " + str(health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	# MOVEMENT -----------------------------------------
 	if useJoyStick == false:
 		direction = (get_global_mouse_position() - global_position).normalized()
 		look_at(get_global_mouse_position())
@@ -48,7 +54,16 @@ func _physics_process(delta):
 		power = lerp(power, 0, friction)
 		velocity = vecFriction(velocity)
 	
+	# LASER SHOOTING ---------------------------------------
+	fireCounter = max(fireCounter-1,0)
+	
+	if isPressed("fire") and fireCounter == 0:
+		fireCounter = fireRate
+		fire()
+		
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
+	pass # Physics_Process
 
 func getDist(pos1:Vector2, pos2:Vector2):
 	return abs(pos1.x - pos2.x) + abs(pos1.y - pos2.y)
@@ -74,6 +89,15 @@ func isPressed(key:String):
 	if Input.is_action_pressed(key+String(controlDevice)):
 		return true
 	else: return false
+
+
+func fire():
+	var bulletInstance = bulletScene.instance()
+	bulletInstance.position = Vector2($bulletSpawnPos.global_position.x, $bulletSpawnPos.global_position.y)
+	bulletInstance.rotation = rotation
+	bulletInstance.apply_impulse(Vector2(), Vector2(bulletSpeed, 0).rotated(rotation))
+	get_tree().root.call_deferred("add_child", bulletInstance)
+
 
 
 

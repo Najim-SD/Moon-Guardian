@@ -43,7 +43,7 @@ position = Vector2( -76.3765, -1.57491 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "JetFlame"
-frame = 12
+frame = 4
 playing = true
 
 [node name="Missile1" parent="." instance=ExtResource( 19 )]
@@ -85,3 +85,9 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PoolVector2Array( -43.7755, -47.5305, -6.02052, -31.9565, 21.8238, -6, 37.3977, 0.135185, 22.2957, 6.27036, -10.7399, 35.0585, -42.3597, 47.3289, -38.1123, -0.808693 )
+
+[node name="bulletSpawnPos" type="Node2D" parent="."]
+position = Vector2( 55, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
