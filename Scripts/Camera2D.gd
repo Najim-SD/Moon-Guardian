@@ -5,13 +5,19 @@ export var targets = ["Player1"]
 var shaking = 0
 var shakingRange = Vector2(-3,3)
 
+func shakeCam(duration:int, shakeR:Vector2):
+	if shaking <= 0 or shakeR.y >= shakingRange.y:
+		shaking = duration
+		shakingRange = shakeR
+		
+
 func _ready():
 	
 	pass # Replace with function body.
 
 
 func _process(delta):
-	shaking  = max(shaking-1, 0)
+	shaking = max(shaking-1, 0)
 	if shaking > 0:
 		offset = Vector2(rand_range(shakingRange.x,shakingRange.y), rand_range(shakingRange.x,shakingRange.y))
 	else:

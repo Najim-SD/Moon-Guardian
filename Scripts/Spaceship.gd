@@ -96,13 +96,37 @@ func fire():
 	bulletInstance.apply_impulse(Vector2(), Vector2(bulletSpeed, 0).rotated(rotation))
 	get_tree().root.call_deferred("add_child", bulletInstance)
 	bulletInstance.ownerId = playerId
-	cam.shaking = 5	# shake for 10 frames
-	cam.shakingRange = Vector2(-2,2)	# higher numbers = more violent shaking
+	cam.shakeCam(5, Vector2(-2,2))
 
 
 func _on_Area2D_body_entered(body):
 	if "Laser" in body.name and body.ownerId != playerId and body.alive == 30:
 		health -= 5
-		cam.shaking = 12	# shake for 10 frames
-		cam.shakingRange = Vector2(-4,4)	# higher numbers = more violent shaking
+		cam.shaking = 12
+		cam.shakingRange = Vector2(-4,4)
+		checkDeath()
+	elif "ship" in body.name and body.playerId != playerId:
+		print("Player" + str(playerId+1) + " entered Player" + str(body.playerId+1))
+		var myHealth = health
+		health -= body.health
+		body.health -= myHealth
+		body.checkDeath()
+		cam.shakeCam(24, Vector2(-6,6))
+		checkDeath()
 	pass # Replace with function body.
+	
+
+func checkDeath():
+	if health <= 0:
+		for t in cam.targets:
+			if t == name:
+				cam.targets.erase(t)
+				break
+		kill()
+	pass
+	
+
+func kill():
+	cam.shakeCam(60, Vector2(-10,10))
+	queue_free()
+	pass
