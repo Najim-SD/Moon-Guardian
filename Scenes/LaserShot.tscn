@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Art/LaserShot.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/LaserShot.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.31804, 2.67354 )
 
 [node name="LaserShot" type="RigidBody2D"]
+contacts_reported = 5
+contact_monitor = true
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -10, 0 )
@@ -17,3 +21,4 @@ offset = Vector2( 2, 0 )
 visible = false
 position = Vector2( -7.5, 0 )
 shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_LaserShot_body_entered"]

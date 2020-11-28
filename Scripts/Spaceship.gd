@@ -1,10 +1,6 @@
 extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 var velocity = Vector2()
 var direction = Vector2()
 var accelration = 25
@@ -18,6 +14,7 @@ var bulletSpeed = 800.0
 export var fireRate = 60 * 0.20
 var fireCounter = 0
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
+var cam = null
 
 export var useJoyStick = true
 export var controlDevice = 0
@@ -26,6 +23,7 @@ export var playerId = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	cam = get_parent().find_node("MultiCam")
 	pass # Replace with function body.
 
 func _process(delta):
@@ -97,10 +95,14 @@ func fire():
 	bulletInstance.rotation = rotation
 	bulletInstance.apply_impulse(Vector2(), Vector2(bulletSpeed, 0).rotated(rotation))
 	get_tree().root.call_deferred("add_child", bulletInstance)
+	bulletInstance.ownerId = playerId
+	cam.shaking = 5	# shake for 10 frames
+	cam.shakingRange = Vector2(-2,2)	# higher numbers = more violent shaking
 
 
-
-
-
-
-
+func _on_Area2D_body_entered(body):
+	if "Laser" in body.name and body.ownerId != playerId and body.alive == 30:
+		health -= 5
+		cam.shaking = 12	# shake for 10 frames
+		cam.shakingRange = Vector2(-4,4)	# higher numbers = more violent shaking
+	pass # Replace with function body.
