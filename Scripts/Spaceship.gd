@@ -6,12 +6,12 @@ var direction = Vector2()
 var accelration = 25
 var power = 0.0
 var friction = 0.03
-var maxSpeed = 500.0
+export var maxSpeed = 500.0
 
 var health = 100
 
 var bulletSpeed = 800.0
-export var fireRate = 60 * 0.20
+export var fireRate = 60 * 0.15
 var fireCounter = 0
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
 var cam = null
@@ -19,6 +19,7 @@ var cam = null
 export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
+export var playerName = "Player"
 
 var hitSound = preload("res://Sounds/Hit.wav")
 var laserSound = preload("res://Sounds/Laser_Shoot.wav")
@@ -31,8 +32,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	$UI.modulate.a = health/100.0
 	$UI.global_rotation = 0
-	$UI/Label.text = "Player: " + str(playerId+1) + "\nHealth : " + str(health)
+	$UI/Label.text = playerName + ": " + str(playerId+1) + "\nHealth : " + str(health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -112,18 +114,6 @@ func _on_Area2D_body_entered(body):
 		health -= 5
 		cam.shaking = 12
 		cam.shakingRange = Vector2(-4,4)
-		$AudioStreamPlayer2D.stream = hitSound
-		$AudioStreamPlayer2D.volume_db = -20
-		$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
-		$AudioStreamPlayer2D.play()
-		checkDeath()
-	elif "ship" in body.name and body.playerId != playerId:
-		print("Player" + str(playerId+1) + " entered Player" + str(body.playerId+1))
-		var myHealth = health
-		health -= body.health
-		body.health -= myHealth
-		body.checkDeath()
-		cam.shakeCam(24, Vector2(-6,6))
 		$AudioStreamPlayer2D.stream = hitSound
 		$AudioStreamPlayer2D.volume_db = -20
 		$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)

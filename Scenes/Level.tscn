@@ -9,16 +9,6 @@
 [node name="Level" type="Node2D"]
 script = ExtResource( 5 )
 
-[node name="Parallax" parent="." instance=ExtResource( 3 )]
-
-[node name="Spaceship1" parent="." instance=ExtResource( 1 )]
-position = Vector2( 493.367, 260.829 )
-
-[node name="Spaceship2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 773.683, 457.051 )
-useJoyStick = false
-playerId = 1
-
 [node name="MultiCam" parent="." instance=ExtResource( 2 )]
 smoothing_speed = 10.0
 drag_margin_left = 0.0
@@ -26,6 +16,16 @@ drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 targets = [ "Spaceship1", "Spaceship2" ]
+
+[node name="Parallax" parent="." instance=ExtResource( 3 )]
+
+[node name="Spaceship1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 509.14, 287.02 )
+useJoyStick = false
+
+[node name="Spaceship2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 765.191, 500.485 )
+playerId = 1
 
 [node name="LevelBoundary" parent="." instance=ExtResource( 4 )]
 position = Vector2( 645.809, 336.359 )

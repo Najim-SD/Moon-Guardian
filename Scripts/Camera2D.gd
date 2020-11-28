@@ -22,6 +22,8 @@ func _process(delta):
 		offset = Vector2(rand_range(shakingRange.x,shakingRange.y), rand_range(shakingRange.x,shakingRange.y))
 	else:
 		offset = Vector2.ZERO
+	if targets.size() <= 0:
+		return
 	var pos:Vector2 = get_parent().find_node(targets[0]).position
 	var maxX = pos.x
 	var minX = pos.x
