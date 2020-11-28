@@ -29,3 +29,5 @@ targets = [ "Spaceship1", "Spaceship2" ]
 
 [node name="LevelBoundary" parent="." instance=ExtResource( 4 )]
 position = Vector2( 645.809, 336.359 )
+
+[node name="LevelAudioPlayer" type="AudioStreamPlayer" parent="."]

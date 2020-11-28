@@ -20,6 +20,10 @@ export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
 
+var hitSound = preload("res://Sounds/Hit.wav")
+var laserSound = preload("res://Sounds/Laser_Shoot.wav")
+var explosionSound = preload("res://Sounds/Explosion.wav")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -97,6 +101,10 @@ func fire():
 	get_tree().root.call_deferred("add_child", bulletInstance)
 	bulletInstance.ownerId = playerId
 	cam.shakeCam(5, Vector2(-2,2))
+	$AudioStreamPlayer2D.stream = laserSound
+	$AudioStreamPlayer2D.volume_db = -20
+	$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
+	$AudioStreamPlayer2D.play()
 
 
 func _on_Area2D_body_entered(body):
@@ -104,6 +112,10 @@ func _on_Area2D_body_entered(body):
 		health -= 5
 		cam.shaking = 12
 		cam.shakingRange = Vector2(-4,4)
+		$AudioStreamPlayer2D.stream = hitSound
+		$AudioStreamPlayer2D.volume_db = -20
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
+		$AudioStreamPlayer2D.play()
 		checkDeath()
 	elif "ship" in body.name and body.playerId != playerId:
 		print("Player" + str(playerId+1) + " entered Player" + str(body.playerId+1))
@@ -112,6 +124,10 @@ func _on_Area2D_body_entered(body):
 		body.health -= myHealth
 		body.checkDeath()
 		cam.shakeCam(24, Vector2(-6,6))
+		$AudioStreamPlayer2D.stream = hitSound
+		$AudioStreamPlayer2D.volume_db = -20
+		$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
+		$AudioStreamPlayer2D.play()
 		checkDeath()
 	pass # Replace with function body.
 	
@@ -128,5 +144,10 @@ func checkDeath():
 
 func kill():
 	cam.shakeCam(60, Vector2(-10,10))
+	var audio = get_parent().find_node("LevelAudioPlayer")
+	audio.stream = explosionSound
+	audio.volume_db = -20
+	audio.pitch_scale = rand_range(0.60,1)
+	audio.play()
 	queue_free()
 	pass
