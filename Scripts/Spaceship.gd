@@ -20,7 +20,7 @@ export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
 export var playerName = "Player"
-export var team = "player"
+export var team = "Player Team"
 
 var hitSound = preload("res://Sounds/Hit.wav")
 var laserSound = preload("res://Sounds/Laser_Shoot.wav")
@@ -104,6 +104,7 @@ func fire():
 	bulletInstance.apply_impulse(Vector2(), Vector2(bulletSpeed, 0).rotated(rotation))
 	get_tree().root.call_deferred("add_child", bulletInstance)
 	bulletInstance.ownerId = playerId
+	bulletInstance.team = team
 	cam.shakeCam(5, Vector2(-2,2))
 	$AudioStreamPlayer2D.stream = laserSound
 	$AudioStreamPlayer2D.volume_db = -20
@@ -113,7 +114,7 @@ func fire():
 
 func _on_Area2D_body_entered(body):
 	print("Ship entered " + body.name)
-	if "Laser" in body.name and body.ownerId != playerId and body.fadeCounter == body.maxFadeCount:
+	if "Laser" in body.name and body.team != team and body.ownerId != playerId and body.fadeCounter == body.maxFadeCount:
 		takeDamage(5)
 	pass # Replace with function body.
 	
