@@ -39,6 +39,7 @@ func _process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if health <= 0: return
 	# MOVEMENT -----------------------------------------
 	if useJoyStick == false:
 		var nd:Vector2 = (get_global_mouse_position() - global_position).normalized()
@@ -119,15 +120,6 @@ func _on_Area2D_body_entered(body):
 	pass # Replace with function body.
 	
 
-func checkDeath():
-	if health <= 0:
-		for t in cam.targets:
-			if t == name:
-				cam.targets.erase(t)
-				break
-		kill()
-	pass
-	
 
 func takeDamage(dmg:int):
 	health -= dmg
@@ -140,6 +132,16 @@ func takeDamage(dmg:int):
 	checkDeath()
 	pass
 
+func checkDeath():
+	if health <= 0:
+		for t in cam.targets:
+			if t == name:
+				cam.targets.erase(t)
+				break
+		kill()
+	pass
+
+
 func kill():
 	cam.shakeCam(60, Vector2(-10,10))
 	var audio = get_parent().find_node("LevelAudioPlayer")
@@ -147,5 +149,13 @@ func kill():
 	audio.volume_db = -20
 	audio.pitch_scale = rand_range(0.60,1)
 	audio.play()
-	queue_free()
+	$AnimatedSprite.play("explosion")
+	$Missile1.visible = false
+	$Missile2.visible = false
 	pass
+
+
+func _on_AnimatedSprite_animation_finished():
+	if $AnimatedSprite.animation == "explosion":
+		queue_free()
+	pass # Replace with function body.
