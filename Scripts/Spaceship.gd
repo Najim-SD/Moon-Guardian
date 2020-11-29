@@ -122,6 +122,7 @@ func _on_Area2D_body_entered(body):
 
 
 func takeDamage(dmg:int):
+	if health <= 0: return
 	health -= dmg
 	cam.shaking = 12
 	cam.shakingRange = Vector2(-4,4)
@@ -150,6 +151,7 @@ func kill():
 	audio.pitch_scale = rand_range(0.60,1)
 	audio.play()
 	$AnimatedSprite.play("explosion")
+	cam.playFX("WhiteScreenFX")
 	$Missile1.visible = false
 	$Missile2.visible = false
 	pass

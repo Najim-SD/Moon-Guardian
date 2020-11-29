@@ -28,6 +28,12 @@ position = Vector2( 765.191, 500.485 )
 playerId = 1
 team = "Enemy Team"
 
+[node name="Spaceship3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 598.514, 563.981 )
+controlDevice = 1
+playerId = 2
+team = "Enemy Team"
+
 [node name="LevelBoundary" parent="." instance=ExtResource( 4 )]
 position = Vector2( 645.809, 336.359 )
 

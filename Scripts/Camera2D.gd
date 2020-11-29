@@ -11,6 +11,13 @@ func shakeCam(duration:int, shakeR:Vector2):
 		shakingRange = shakeR
 		
 
+func playFX(fx:String):
+	print("FX ----------------------")
+	$HUD/AnimatedFX.visible = true
+	$HUD/AnimatedFX.frame = 0
+	$HUD/AnimatedFX.play(fx)
+
+
 func _ready():
 	
 	pass # Replace with function body.
@@ -56,7 +63,6 @@ func _process(delta):
 	zoom.x = f
 	zoom.y = f
 	pass
-
 
 
 
