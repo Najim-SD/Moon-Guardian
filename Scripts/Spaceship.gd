@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 
 var velocity = Vector2()
-var direction = Vector2()
+var direction = Vector2(1,0)
 var accelration = 25
 var power = 0.0
 var friction = 0.03
@@ -68,7 +68,7 @@ func _physics_process(delta):
 		
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
-	pass # Physics_Process
+	pass # Physics_Process()
 
 func getDist(pos1:Vector2, pos2:Vector2):
 	return abs(pos1.x - pos2.x) + abs(pos1.y - pos2.y)
@@ -112,14 +112,7 @@ func fire():
 
 func _on_Area2D_body_entered(body):
 	if "Laser" in body.name and body.ownerId != playerId and body.alive == 30:
-		health -= 5
-		cam.shaking = 12
-		cam.shakingRange = Vector2(-4,4)
-		$AudioStreamPlayer2D.stream = hitSound
-		$AudioStreamPlayer2D.volume_db = -20
-		$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
-		$AudioStreamPlayer2D.play()
-		checkDeath()
+		takeDamage(5)
 	pass # Replace with function body.
 	
 
@@ -132,6 +125,17 @@ func checkDeath():
 		kill()
 	pass
 	
+
+func takeDamage(dmg:int):
+	health -= dmg
+	cam.shaking = 12
+	cam.shakingRange = Vector2(-4,4)
+	$AudioStreamPlayer2D.stream = hitSound
+	$AudioStreamPlayer2D.volume_db = -20
+	$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
+	$AudioStreamPlayer2D.play()
+	checkDeath()
+	pass
 
 func kill():
 	cam.shakeCam(60, Vector2(-10,10))
