@@ -11,7 +11,7 @@ export var maxSpeed = 500.0
 var health = 100
 
 var bulletSpeed = 800.0
-export var fireRate = 60 * 0.15
+export var fireRate = 60 * 0.10
 var fireCounter = 0
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
 var cam = null
@@ -20,6 +20,7 @@ export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
 export var playerName = "Player"
+export var team = "player"
 
 var hitSound = preload("res://Sounds/Hit.wav")
 var laserSound = preload("res://Sounds/Laser_Shoot.wav")
@@ -111,7 +112,8 @@ func fire():
 
 
 func _on_Area2D_body_entered(body):
-	if "Laser" in body.name and body.ownerId != playerId and body.alive == 30:
+	print("Ship entered " + body.name)
+	if "Laser" in body.name and body.ownerId != playerId and body.fadeCounter == body.maxFadeCount:
 		takeDamage(5)
 	pass # Replace with function body.
 	

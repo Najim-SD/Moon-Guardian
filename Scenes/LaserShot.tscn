@@ -1,24 +1,47 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Art/LaserShot.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/LaserShot.gd" type="Script" id=2]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 06.png" type="Texture" id=3]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 08.png" type="Texture" id=4]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 02.png" type="Texture" id=5]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 04.png" type="Texture" id=6]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 07.png" type="Texture" id=7]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 01.png" type="Texture" id=8]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 03.png" type="Texture" id=9]
+[ext_resource path="res://Art/LaserImpact/LaserImpact 05.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.31804, 2.67354 )
 
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "laser",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "laserImpact",
+"speed": 24.0
+} ]
+
 [node name="LaserShot" type="RigidBody2D"]
+gravity_scale = 0.0
 contacts_reported = 5
 contact_monitor = true
 script = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -10, 0 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-offset = Vector2( 2, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -7.5, 0 )
 shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -9, 0.5 )
+rotation = 1.5708
+frames = SubResource( 2 )
+animation = "laser"
+offset = Vector2( 1, 0 )
 [connection signal="body_entered" from="." to="." method="_on_LaserShot_body_entered"]
