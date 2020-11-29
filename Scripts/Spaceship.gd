@@ -40,8 +40,9 @@ func _process(delta):
 func _physics_process(delta):
 	# MOVEMENT -----------------------------------------
 	if useJoyStick == false:
-		direction = (get_global_mouse_position() - global_position).normalized()
-		look_at(get_global_mouse_position())
+		var nd:Vector2 = (get_global_mouse_position() - global_position).normalized()
+		direction = vectorLerp(direction, nd, 0.1)
+		rotation = direction.angle()
 	else:
 		var nd:Vector2 = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
 		nd = nd.normalized()
