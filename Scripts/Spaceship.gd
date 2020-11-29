@@ -55,9 +55,12 @@ func _physics_process(delta):
 	if isPressed("move"):
 		power = min(accelration/2 + power, maxSpeed)
 		velocity = vectorLerp(velocity, (direction * power), 0.1)
-		get_node("JetFlame").show()
+		if isJustPressed("move"):
+			$JetFlame.play("flameStart")
+			$JetFlame.show()
 	else:
-		get_node("JetFlame").hide()
+		if isJustReleased("move"):
+			$JetFlame.play("flameStart", true)
 		power = lerp(power, 0, friction)
 		velocity = vecFriction(velocity)
 	
@@ -97,6 +100,25 @@ func isPressed(key:String):
 		return true
 	else: return false
 
+func isJustPressed(key:String):
+	if useJoyStick == false:
+		if key == "move" and getDist(get_global_mouse_position(), position) < 70: return false
+		if Input.is_action_just_pressed(key):
+			return true
+		else : return false
+	if Input.is_action_just_pressed(key+String(controlDevice)):
+		return true
+	else: return false
+
+func isJustReleased(key:String):
+	if useJoyStick == false:
+		if key == "move" and getDist(get_global_mouse_position(), position) < 70: return false
+		if Input.is_action_just_released(key):
+			return true
+		else : return false
+	if Input.is_action_just_released(key+String(controlDevice)):
+		return true
+	else: return false
 
 func fire():
 	var bulletInstance = bulletScene.instance()
@@ -160,4 +182,12 @@ func kill():
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "explosion":
 		queue_free()
+	pass # Replace with function body.
+
+
+func _on_JetFlame_animation_finished():
+	if $JetFlame.animation == "flameStart":
+		$JetFlame.play("jetFlame")
+		if not isPressed("move"):
+			$JetFlame.hide()
 	pass # Replace with function body.
