@@ -16,15 +16,15 @@ extents = Vector2( 9.31804, 2.67354 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": false,
-"name": "laser",
-"speed": 1.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 4 ) ],
 "loop": false,
 "name": "laserImpact",
 "speed": 24.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "laser",
+"speed": 1.0
 } ]
 
 [node name="LaserShot" type="RigidBody2D"]

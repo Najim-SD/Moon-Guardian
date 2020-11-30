@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 var ownerId = 0
 var launched = false

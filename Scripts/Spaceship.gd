@@ -8,7 +8,8 @@ var power = 0.0
 var friction = 0.03
 export var maxSpeed = 500.0
 
-var health = 100
+export var health:float = 100
+export var maxHealth:float = 100
 
 var bulletSpeed = 800.0
 export var fireRate = 60 * 0.10
@@ -30,12 +31,15 @@ var explosionSound = preload("res://Sounds/Explosion.wav")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cam = get_parent().find_node("MultiCam")
+	$UI/ProgressBar.min_value = 0
+	$UI/ProgressBar.max_value = maxHealth
+	$UI/ProgressBar.value = health
 	pass # Replace with function body.
 
 func _process(delta):
-	$UI.modulate.a = health/100.0
 	$UI.global_rotation = 0
-	$UI/Label.text = playerName + ": " + str(playerId+1) + "\nHealth : " + str(health)
+	$UI/ProgressBar.value = health
+	$UI/Label.text = playerName + ": " + str(playerId+1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -176,6 +180,7 @@ func kill():
 	cam.playFX("WhiteScreenFX")
 	$Missile1.visible = false
 	$Missile2.visible = false
+	$UI.visible = false
 	pass
 
 
