@@ -134,6 +134,7 @@ position = Vector2( -76.3765, -1.57491 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "jetFlame"
+frame = 1
 playing = true
 
 [node name="Missile1" parent="." instance=ExtResource( 19 )]

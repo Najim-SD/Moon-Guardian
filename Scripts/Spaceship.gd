@@ -18,6 +18,7 @@ var missilesAvailable = 2
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
 var missileScene = preload("res://Scenes/Missile.tscn")
 var HPCanScene = preload("res://Scenes/HPCan.tscn")
+var RoCanScene = preload("res://Scenes/RoCan.tscn")
 var cam = null
 var locks = []
 
@@ -284,12 +285,19 @@ func kill():
 
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "explosion":
+		queue_free()
+		cam.targets.erase(name)
+		if name == "Spaceship": return
 		if randf() < 0.6:
 			var hp = HPCanScene.instance()
 			hp.global_position = global_position
 			get_parent().call_deferred("add_child", hp)
 			pass
-		queue_free()
+		if randf() < 0.3:
+			var ro = RoCanScene.instance()
+			ro.global_position = global_position
+			get_parent().call_deferred("add_child", ro)
+			pass
 	pass # Replace with function body.
 
 

@@ -21,6 +21,7 @@ func _process(delta):
 	fadeCounter = max(fadeCounter -1, 0)
 	$CanvasLayer/Label.modulate.a = fadeCounter/fadeMax
 	if ship == null or moon == null:
+		if ship != null and ship.health > 0: ship.kill()
 		$CanvasLayer/Label.text = "You Survived " + str(currentWave) + " Waves!"
 		$CanvasLayer/Label.modulate.a = 1
 		$CanvasLayer/Label.visible = true
@@ -59,6 +60,9 @@ func startWave():
 		eShip.maxSpeed = 250.0
 		eShip.fireRate = 60 * 0.3
 		eShip.isBot = true
+		eShip.modulate.r = 0.90
+		eShip.modulate.g = 1
+		eShip.modulate.b = 0.85
 		var ls = ["Spaceship", "Moonship"]
 		eShip.target = find_node(ls[randi()%2])
 		eShip.chaseType = randi()%2 + 1

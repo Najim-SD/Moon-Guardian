@@ -29,6 +29,7 @@ targets = [ "Spaceship1", "Spaceship2" ]
 position = Vector2( 509.14, 287.02 )
 
 [node name="Spaceship2" parent="." instance=ExtResource( 3 )]
+modulate = Color( 0.827451, 1, 0.780392, 1 )
 position = Vector2( 765.191, 500.485 )
 controlDevice = 1
 playerId = 1
