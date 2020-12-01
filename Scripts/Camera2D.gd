@@ -12,7 +12,6 @@ func shakeCam(duration:int, shakeR:Vector2):
 		
 
 func playFX(fx:String):
-	print("FX ----------------------")
 	$HUD/AnimatedFX.visible = true
 	$HUD/AnimatedFX.frame = 0
 	$HUD/AnimatedFX.play(fx)

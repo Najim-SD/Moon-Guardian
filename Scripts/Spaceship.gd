@@ -12,10 +12,13 @@ export var health:float = 100
 export var maxHealth:float = 100
 
 var bulletSpeed = 800.0
-export var fireRate = 60 * 0.10
+export var fireRate = 60 * 0.15
 var fireCounter = 0
+var missilesAvailable = 2
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
+var missileScene = preload("res://Scenes/Missile.tscn")
 var cam = null
+var locks = []
 
 export var useJoyStick = true
 export var controlDevice = 0
@@ -34,6 +37,10 @@ func _ready():
 	$UI/ProgressBar.min_value = 0
 	$UI/ProgressBar.max_value = maxHealth
 	$UI/ProgressBar.value = health
+	$Missile1.ownerId = playerId
+	$Missile1.team = team
+	$Missile2.ownerId = playerId
+	$Missile2.team = team
 	pass # Replace with function body.
 
 func _process(delta):
@@ -61,10 +68,12 @@ func _physics_process(delta):
 		velocity = vectorLerp(velocity, (direction * power), 0.1)
 		if isJustPressed("move"):
 			$JetFlame.play("flameStart")
+			$JetFlame.speed_scale = 1
 			$JetFlame.show()
 	else:
 		if isJustReleased("move"):
 			$JetFlame.play("flameStart", true)
+			$JetFlame.speed_scale = 2
 		power = lerp(power, 0, friction)
 		velocity = vecFriction(velocity)
 	
@@ -75,6 +84,14 @@ func _physics_process(delta):
 		fireCounter = fireRate
 		fire()
 		
+	if isJustPressed("launch") and missilesAvailable > 0:
+		launchMissile()
+	
+	# Smoke Particles ----------------------------------------
+	var cv:float = (health/maxHealth)
+	$SmokeParticles.emitting = cv <= 0.25
+	$SmokeParticles.process_material.direction = Vector3(direction.x, direction.y, 0).rotated(Vector3(0,0,1), deg2rad(180.0))
+	$SmokeParticles.process_material.spread = int((velocity.x / maxSpeed) * 180) - 180
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	pass # Physics_Process()
@@ -124,6 +141,10 @@ func isJustReleased(key:String):
 		return true
 	else: return false
 
+func lockON(lock:bool):
+	$UI/Lock.visible = lock
+	pass
+
 func fire():
 	var bulletInstance = bulletScene.instance()
 	bulletInstance.position = Vector2($bulletSpawnPos.global_position.x, $bulletSpawnPos.global_position.y)
@@ -138,9 +159,26 @@ func fire():
 	$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
 	$AudioStreamPlayer2D.play()
 
+func launchMissile():
+	if missilesAvailable <= 0: return
+	var missileName = "Missile1"
+	if missilesAvailable == 1 : missileName = "Missile2"
+	var missile = find_node(missileName)
+	missile.hide()
+	missilesAvailable -= 1
+	
+	var missileInstance = missileScene.instance()
+	missileInstance.position = missile.global_position
+	missileInstance.rotation = rotation
+	get_tree().root.call_deferred("add_child", missileInstance)
+	missileInstance.ownerId = playerId
+	missileInstance.team = team
+	missileInstance.launch(direction)
+	cam.shakeCam(7, Vector2(-3,3))
+	pass
+
 
 func _on_Area2D_body_entered(body):
-	print("Ship entered " + body.name)
 	if "Laser" in body.name and body.team != team and body.ownerId != playerId and body.fadeCounter == body.maxFadeCount:
 		takeDamage(5)
 	pass # Replace with function body.
@@ -150,8 +188,7 @@ func _on_Area2D_body_entered(body):
 func takeDamage(dmg:int):
 	if health <= 0: return
 	health -= dmg
-	cam.shaking = 12
-	cam.shakingRange = Vector2(-4,4)
+	cam.shakeCam(12, Vector2(-4,4))
 	$AudioStreamPlayer2D.stream = hitSound
 	$AudioStreamPlayer2D.volume_db = -20
 	$AudioStreamPlayer2D.pitch_scale = rand_range(0.60,1)
@@ -181,6 +218,7 @@ func kill():
 	$Missile1.visible = false
 	$Missile2.visible = false
 	$UI.visible = false
+	$JetFlame.hide()
 	pass
 
 
@@ -193,6 +231,7 @@ func _on_AnimatedSprite_animation_finished():
 func _on_JetFlame_animation_finished():
 	if $JetFlame.animation == "flameStart":
 		$JetFlame.play("jetFlame")
+		$JetFlame.speed_scale = 1
 		if not isPressed("move"):
 			$JetFlame.hide()
 	pass # Replace with function body.

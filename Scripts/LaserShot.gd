@@ -22,7 +22,6 @@ func _physics_process(delta):
 
 
 func _on_LaserShot_body_entered(body):
-	print("Laser entered " + body.name)
 	beginDestroy = true
 	# stop the rigid body from moving
 	if not (("ship" in body.name or "Laser" in body) and body.team == team):

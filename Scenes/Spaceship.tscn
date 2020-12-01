@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Art/Spaceship.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Spaceship.gd" type="Script" id=2]
@@ -57,6 +57,8 @@
 [ext_resource path="res://Art/JetFlame Start/JetFlame Start 03.png" type="Texture" id=55]
 [ext_resource path="res://Art/JetFlame Start/JetFlame Start 08.png" type="Texture" id=56]
 [ext_resource path="res://Art/JetFlame Start/JetFlame Start 17.png" type="Texture" id=57]
+[ext_resource path="res://Art/Fx/DustParticle.png" type="Texture" id=58]
+[ext_resource path="res://Art/Lock.png" type="Texture" id=59]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -84,19 +86,42 @@ animations = [ {
 "speed": 24.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.23
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.7
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 34.0
+linear_accel_random = 0.34
+damping = 100.0
+angle_random = 1.0
+scale = 2.0
+scale_random = 0.82
+color_ramp = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 18
 outline_size = 1
 outline_color = Color( 0.113725, 0.678431, 1, 1 )
 font_data = ExtResource( 18 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.0820313, 0.0240326, 0.0240326, 1 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=9]
 size = 12
 font_data = ExtResource( 18 )
 
@@ -109,6 +134,8 @@ position = Vector2( -76.3765, -1.57491 )
 rotation = 1.5708
 frames = SubResource( 1 )
 animation = "jetFlame"
+frame = 10
+playing = true
 
 [node name="Missile1" parent="." instance=ExtResource( 19 )]
 position = Vector2( 10, 20 )
@@ -121,6 +148,7 @@ position = Vector2( -1, 0.5 )
 rotation = 1.5708
 frames = SubResource( 2 )
 animation = "normal"
+playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
@@ -142,9 +170,31 @@ __meta__ = {
 stream = ExtResource( 20 )
 volume_db = -20.0
 
+[node name="SmokeParticles" type="Particles2D" parent="."]
+position = Vector2( -21.5378, -0.13047 )
+amount = 24
+randomness = 0.13
+local_coords = false
+process_material = SubResource( 10 )
+texture = ExtResource( 58 )
+
 [node name="UI" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.686275 )
-position = Vector2( -0.529724, 13.773 )
+
+[node name="Lock" type="TextureRect" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.0
+margin_top = -69.0
+margin_right = 69.0
+margin_bottom = 69.0
+texture = ExtResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="UI"]
 anchor_left = 0.5
@@ -156,7 +206,7 @@ margin_top = -115.0
 margin_right = 62.0
 margin_bottom = -92.0
 grow_horizontal = 2
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "Player"
 align = 1
 __meta__ = {
@@ -172,10 +222,10 @@ margin_left = -81.0
 margin_top = -90.0
 margin_right = 80.0
 margin_bottom = -75.0
-custom_styles/fg = SubResource( 4 )
-custom_styles/bg = SubResource( 5 )
-custom_fonts/font = SubResource( 6 )
-value = 75.0
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
+value = 24.0
 allow_greater = true
 __meta__ = {
 "_edit_use_anchors_": false
