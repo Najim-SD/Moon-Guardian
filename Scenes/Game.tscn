@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/MultiCam.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Moonship.tscn" type="PackedScene" id=2]
@@ -14,6 +14,10 @@ size = 30
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 18
 font_data = ExtResource( 7 )
 
@@ -64,7 +68,6 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="CanvasLayer"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -89.8811
@@ -73,6 +76,19 @@ margin_right = 95.1189
 margin_bottom = 604.692
 custom_fonts/font = SubResource( 2 )
 text = "Play Again"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mainMenu" type="Button" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -89.4802
+margin_top = 627.262
+margin_right = 95.5198
+margin_bottom = 655.262
+custom_fonts/font = SubResource( 3 )
+text = "Main Menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -107,3 +123,4 @@ useJoyStick = false
 [node name="spawn" type="Position2D" parent="."]
 position = Vector2( -0.475739, -769.842 )
 [connection signal="button_up" from="CanvasLayer/start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="CanvasLayer/mainMenu" to="." method="_on_mainMenu_button_up"]

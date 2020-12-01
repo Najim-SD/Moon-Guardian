@@ -74,3 +74,8 @@ func startWave():
 func _on_start_button_up():
 	get_tree().change_scene("res://Scenes/Game.tscn")
 	pass # Replace with function body.
+
+
+func _on_mainMenu_button_up():
+	get_tree().change_scene("res://Scenes/Main Menu.tscn")
+	pass # Replace with function body.

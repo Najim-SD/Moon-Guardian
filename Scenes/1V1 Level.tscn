@@ -69,7 +69,7 @@ margin_top = -308.521
 margin_right = 327.325
 margin_bottom = -273.521
 custom_fonts/font = SubResource( 1 )
-text = "Use two Controllers"
+text = "Use two controllers to play"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

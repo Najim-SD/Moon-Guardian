@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Art/Moon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Moon.gd" type="Script" id=2]
@@ -16,12 +16,6 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 140.25
-
-[sub_resource type="DynamicFont" id=6]
-size = 18
-outline_size = 1
-outline_color = Color( 0.113725, 0.678431, 1, 1 )
-font_data = ExtResource( 3 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 0, 0, 1 )
@@ -59,23 +53,6 @@ margin_top = -69.0
 margin_right = 69.0
 margin_bottom = 69.0
 texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UI"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -61.0562
-margin_top = -167.737
-margin_right = 62.9438
-margin_bottom = -144.737
-grow_horizontal = 2
-custom_fonts/font = SubResource( 6 )
-text = "Player"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
