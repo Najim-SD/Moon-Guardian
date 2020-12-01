@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Art/GandolLogo.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/MultiCam.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Art/Fx/ScreenFX.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Intro.gd" type="Script" id=4]
 [ext_resource path="res://Art/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Art/GameOFF Wh.png" type="Texture" id=6]
@@ -21,7 +20,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="GameOFF" type="Sprite" parent="."]
+position = Vector2( 916.984, 284.669 )
+scale = Vector2( 0.14687, 0.14687 )
+texture = ExtResource( 6 )
+
+[node name="ScrFX" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="Logo" type="TextureRect" parent="."]
 anchor_left = 0.5
@@ -34,29 +51,6 @@ texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="GameOFF" type="Sprite" parent="."]
-position = Vector2( 916.984, 284.669 )
-scale = Vector2( 0.14687, 0.14687 )
-texture = ExtResource( 6 )
-
-[node name="MultiCam" type="Camera2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 640, 360 )
-current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = true
-smoothing_speed = 10.0
-drag_margin_left = 0.0
-drag_margin_top = 0.0
-drag_margin_right = 0.0
-drag_margin_bottom = 0.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-targets = [  ]
 
 [node name="Label" type="Label" parent="."]
 margin_left = 807.59

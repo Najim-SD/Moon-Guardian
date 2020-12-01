@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Art/Fx/ScreenFX.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Main Menu.gd" type="Script" id=3]
+[ext_resource path="res://Art/Game Title.png" type="Texture" id=4]
+[ext_resource path="res://Art/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 5 )
+
+[node name="Main Menu" type="Control"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScrFX" type="TextureRect" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="TextureRect" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -357.5
+margin_top = 20.0
+margin_right = 357.5
+margin_bottom = 202.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -77.0
+margin_right = 656.0
+custom_fonts/font = SubResource( 1 )
+text = "Made for the Github 2020 GameOFF Jam
+Using Godot 3.2.2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -92.0
+margin_top = 260.0
+margin_right = 93.0
+margin_bottom = 288.0
+custom_fonts/font = SubResource( 2 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1v1" type="Button" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -92.0
+margin_top = 300.0
+margin_right = 93.0
+margin_bottom = 288.0
+custom_fonts/font = SubResource( 2 )
+text = "1 v 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit" type="Button" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -92.0
+margin_top = 340.0
+margin_right = 93.0
+margin_bottom = 288.0
+custom_fonts/font = SubResource( 2 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="UI/start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="UI/1v1" to="." method="_on_1v1_button_up"]
+[connection signal="button_up" from="UI/exit" to="." method="_on_exit_button_up"]
