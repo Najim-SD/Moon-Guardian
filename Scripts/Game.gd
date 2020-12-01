@@ -25,11 +25,15 @@ func startWave():
 	currentWave += 1
 	for i in range(currentWave):
 		var eShip = spaceshipScene.instance()
+		eShip.global_position.x = randi() % 50 - 24 + $spawn.position.x
+		eShip.global_position.y = randi() % 50 - 24 + $spawn.position.y
 		call_deferred("add_child", eShip)
 		eShip.playerId = i+1
 		eShip.team = "enemy"
 		eShip.playerName = "Alien"
 		eShip.controlDevice = 3
+		eShip.maxHealth = 50
+		eShip.health = 50
 		enemies.append(eShip)
 		pass
 	pass

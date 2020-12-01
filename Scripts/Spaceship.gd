@@ -20,6 +20,10 @@ var missileScene = preload("res://Scenes/Missile.tscn")
 var cam = null
 var locks = []
 
+export var isBot = false
+var target
+var lockedON = false
+
 export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
