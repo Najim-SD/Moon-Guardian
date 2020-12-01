@@ -34,6 +34,10 @@ func startWave():
 		eShip.controlDevice = 3
 		eShip.maxHealth = 50
 		eShip.health = 50
+		eShip.isBot = true
+		var ls = ["Spaceship", "Moonship"]
+		eShip.target = find_node(ls[randi()%2])
+		eShip.chaseType = randi()%2 + 1
 		enemies.append(eShip)
 		pass
 	pass

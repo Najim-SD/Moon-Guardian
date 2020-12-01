@@ -20,9 +20,12 @@ var missileScene = preload("res://Scenes/Missile.tscn")
 var cam = null
 var locks = []
 
+# AI stuff ---------------------------
 export var isBot = false
 var target
-var lockedON = false
+var chaseType = 1
+var chaseMax = int(rand_range(60,60*4))
+var chaseCounter = chaseMax
 
 export var useJoyStick = true
 export var controlDevice = 0
@@ -56,32 +59,11 @@ func _process(delta):
 func _physics_process(delta):
 	if health <= 0: return
 	# MOVEMENT -----------------------------------------
-	if useJoyStick == false:
-		var nd:Vector2 = (get_global_mouse_position() - global_position).normalized()
-		direction = vectorLerp(direction, nd, 0.1)
-		rotation = direction.angle()
-	else:
-		var nd:Vector2 = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
-		nd = nd.normalized()
-		if(nd.length() > 0.3):
-			direction = vectorLerp(direction, nd, 0.1)
-			rotation = direction.angle()
-	
-	if isPressed("move"):
-		power = min(accelration/2 + power, maxSpeed)
-		velocity = vectorLerp(velocity, (direction * power), 0.1)
-		if isJustPressed("move"):
-			$JetFlame.play("flameStart")
-			$JetFlame.speed_scale = 1
-			$JetFlame.show()
-	else:
-		if isJustReleased("move"):
-			$JetFlame.play("flameStart", true)
-			$JetFlame.speed_scale = 2
-		power = lerp(power, 0, friction)
-		velocity = vecFriction(velocity)
-	
-	# LASER SHOOTING ---------------------------------------
+	if isBot:
+		botMovement()
+	else: 
+		playerMovement()
+	# SHOOTING ---------------------------------------
 	fireCounter = max(fireCounter-1,0)
 	
 	if isPressed("fire") and fireCounter == 0:
@@ -114,6 +96,56 @@ func vectorLerp(vec:Vector2, to:Vector2, f:float):
 	vec.y = lerp(vec.y, to.y, f)
 	return vec
 	
+
+func playerMovement():
+	if useJoyStick == false:
+		var nd:Vector2 = (get_global_mouse_position() - global_position).normalized()
+		direction = vectorLerp(direction, nd, 0.1)
+		rotation = direction.angle()
+	else:
+		var nd:Vector2 = Vector2(Input.get_joy_axis(controlDevice, 0), Input.get_joy_axis(controlDevice, 1))
+		nd = nd.normalized()
+		if(nd.length() > 0.3):
+			direction = vectorLerp(direction, nd, 0.1)
+			rotation = direction.angle()
+	
+	if isPressed("move"):
+		power = min(accelration/2 + power, maxSpeed)
+		velocity = vectorLerp(velocity, (direction * power), 0.1)
+		if isJustPressed("move"):
+			$JetFlame.play("flameStart")
+			$JetFlame.speed_scale = 1
+			$JetFlame.show()
+	else:
+		if isJustReleased("move"):
+			$JetFlame.play("flameStart", true)
+			$JetFlame.speed_scale = 2
+		power = lerp(power, 0, friction)
+		velocity = vecFriction(velocity)
+	pass
+
+func botMovement():
+	var isMoving = false
+	if chaseType == 2:
+		isMoving = true
+	elif chaseType == 1:
+		chaseCounter -= 1
+		isMoving = true
+		if chaseCounter == 0:
+			chaseCounter = chaseMax
+			chaseType = randi() % 2
+		
+	if isMoving:
+		var nd:Vector2 = (target.global_position - global_position).normalized()
+		direction = vectorLerp(direction, nd, 0.1)
+		rotation = direction.angle()
+		
+		power = min(accelration/2 + power, maxSpeed)
+		velocity = vectorLerp(velocity, (direction * power), 0.1)
+		if (chaseType == 1 and chaseCounter == chaseMax - 1) or (chaseType == 2 and not $JetFlame.visible):
+			$JetFlame.play("flameStart")
+			$JetFlame.speed_scale = 1
+			$JetFlame.show()
 
 func isPressed(key:String):
 	if useJoyStick == false:
