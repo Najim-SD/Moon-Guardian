@@ -27,5 +27,7 @@ func _on_LaserShot_body_entered(body):
 	if not (("ship" in body.name or "Laser" in body) and body.team == team):
 		$AnimatedSprite.play("laserImpact")
 		$AnimatedSprite.offset.y = -9
+		if body.name == "Moonship":
+			body.takeDamage(5)
 	pass # Replace with function body.
 

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Art/Moon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Moon.gd" type="Script" id=2]
+[ext_resource path="res://Art/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Art/Lock.png" type="Texture" id=4]
+[ext_resource path="res://Sounds/Laser_Shoot.wav" type="AudioStream" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -14,6 +17,22 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 140.25
 
+[sub_resource type="DynamicFont" id=6]
+size = 18
+outline_size = 1
+outline_color = Color( 0.113725, 0.678431, 1, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.0820313, 0.0240326, 0.0240326, 1 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 12
+font_data = ExtResource( 3 )
+
 [node name="Moonship" type="RigidBody2D"]
 script = ExtResource( 2 )
 
@@ -25,3 +44,60 @@ offset = Vector2( -3, 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 2 )
+
+[node name="UI" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.686275 )
+
+[node name="Lock" type="TextureRect" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.0
+margin_top = -69.0
+margin_right = 69.0
+margin_bottom = 69.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0562
+margin_top = -167.737
+margin_right = 62.9438
+margin_bottom = -144.737
+grow_horizontal = 2
+custom_fonts/font = SubResource( 6 )
+text = "Player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -121.381
+margin_top = -30.0
+margin_right = 123.619
+margin_bottom = -14.0
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
+value = 24.0
+allow_greater = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0

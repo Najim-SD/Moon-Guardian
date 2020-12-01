@@ -17,6 +17,7 @@ var fireCounter = 0
 var missilesAvailable = 2
 var bulletScene = preload("res://Scenes/LaserShot.tscn")
 var missileScene = preload("res://Scenes/Missile.tscn")
+var HPCanScene = preload("res://Scenes/HPCan.tscn")
 var cam = null
 var locks = []
 
@@ -63,15 +64,13 @@ func _physics_process(delta):
 		botMovement()
 	else: 
 		playerMovement()
-	# SHOOTING ---------------------------------------
-	fireCounter = max(fireCounter-1,0)
 	
-	if isPressed("fire") and fireCounter == 0:
-		fireCounter = fireRate
-		fire()
-		
-	if isJustPressed("launch") and missilesAvailable > 0:
-		launchMissile()
+	
+	# SHOOTING ---------------------------------------
+	if isBot:
+		botShooting()
+	else: 
+		playerShooting()
 	
 	# Smoke Particles ----------------------------------------
 	var cv:float = (health/maxHealth)
@@ -126,26 +125,51 @@ func playerMovement():
 
 func botMovement():
 	var isMoving = false
-	if chaseType == 2:
-		isMoving = true
-	elif chaseType == 1:
+	if chaseType == 0 or chaseType == 1:
+		if chaseType == 1:
+			isMoving = true
 		chaseCounter -= 1
-		isMoving = true
 		if chaseCounter == 0:
 			chaseCounter = chaseMax
 			chaseType = randi() % 2
+	elif chaseType == 2:
+		isMoving = true
 		
-	if isMoving:
+	
+	if target != null:	
 		var nd:Vector2 = (target.global_position - global_position).normalized()
 		direction = vectorLerp(direction, nd, 0.1)
 		rotation = direction.angle()
+	
+		if isMoving and getDist(global_position, target.global_position) >= 200:	
+			power = min(accelration/2 + power, maxSpeed)
+			velocity = vectorLerp(velocity, (direction * power), 0.1)
+			if (chaseType == 1 and chaseCounter == chaseMax - 1) or (chaseType == 2 and not $JetFlame.visible):
+				$JetFlame.play("flameStart")
+				$JetFlame.speed_scale = 1
+				$JetFlame.show()
+
+func botShooting():
+	fireCounter = max(fireCounter-1,0)
+	if fireCounter == 0:
+		fireCounter = fireRate
+		fire()
+	if missilesAvailable > 0:
+		if missilesAvailable == 2 and health/maxHealth < 0.6:
+			launchMissile()
+		elif missilesAvailable == 1 and health/maxHealth < 0.2:
+			launchMissile()
+	pass
+
+func playerShooting():
+	fireCounter = max(fireCounter-1,0)
+	if isPressed("fire") and fireCounter == 0:
+		fireCounter = fireRate
+		fire()
 		
-		power = min(accelration/2 + power, maxSpeed)
-		velocity = vectorLerp(velocity, (direction * power), 0.1)
-		if (chaseType == 1 and chaseCounter == chaseMax - 1) or (chaseType == 2 and not $JetFlame.visible):
-			$JetFlame.play("flameStart")
-			$JetFlame.speed_scale = 1
-			$JetFlame.show()
+	if isJustPressed("launch") and missilesAvailable > 0:
+		launchMissile()
+	pass
 
 func isPressed(key:String):
 	if useJoyStick == false:
@@ -260,6 +284,11 @@ func kill():
 
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "explosion":
+		if randf() < 0.6:
+			var hp = HPCanScene.instance()
+			hp.global_position = global_position
+			get_parent().call_deferred("add_child", hp)
+			pass
 		queue_free()
 	pass # Replace with function body.
 
