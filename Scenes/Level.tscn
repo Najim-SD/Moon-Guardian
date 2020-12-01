@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/LevelBoundary.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=5]
 
-[node name="Dev Level" type="Node2D"]
+[node name="1V1 Level" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="MultiCam" parent="." instance=ExtResource( 2 )]

@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="Moon Guardian"
 config/description="A game made for the 2020 Github GameOff Jam. using Godot 3.2.3"
-run/main_scene="res://Scenes/Level.tscn"
+run/main_scene="res://Scenes/Intro.tscn"
 config/icon="res://icon.png"
 
 [display]
