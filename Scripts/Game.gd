@@ -26,6 +26,7 @@ func _process(delta):
 		$CanvasLayer/Label.modulate.a = 1
 		$CanvasLayer/Label.visible = true
 		$CanvasLayer/start.visible = true
+		$CanvasLayer/mainMenu.visible = true
 		return
 	var done = true
 	for e in enemies:
