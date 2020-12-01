@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/MultiCam.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Moonship.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Spaceship.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Parallax.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="Parallax" parent="." instance=ExtResource( 5 )]
 
@@ -15,12 +17,13 @@ drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
-targets = [ "Spaceship1", "Moon" ]
+targets = [ "Spaceship", "Moonship" ]
 
 [node name="Moonship" parent="." instance=ExtResource( 2 )]
 mode = 1
 
-[node name="Spaceship1" parent="." instance=ExtResource( 3 )]
+[node name="Spaceship" parent="." instance=ExtResource( 3 )]
 position = Vector2( 509.14, 287.02 )
+useJoyStick = false
 
 [node name="LevelAudioPlayer" type="AudioStreamPlayer" parent="."]

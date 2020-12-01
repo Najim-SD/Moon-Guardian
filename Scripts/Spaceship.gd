@@ -24,7 +24,7 @@ export var useJoyStick = true
 export var controlDevice = 0
 export var playerId = 0
 export var playerName = "Player"
-export var team = "Player Team"
+export var team = "player"
 
 var hitSound = preload("res://Sounds/Hit.wav")
 var laserSound = preload("res://Sounds/Laser_Shoot.wav")
